@@ -1,5 +1,15 @@
+import { Keyboard } from './Keyboard'
+
 const Wordle = () => (
-  <section className="m-6">Root</section>
+  <section className="p-6 h-screen bg-sky-lightest flex flex-col">
+    <h1 className="font-inter text-3xl font-bold">
+      <span className="text-purple-light">un</span>
+      wordle
+    </h1>
+    <div className="mt-auto">
+      <Keyboard />
+    </div>
+  </section>
 )
 
 export { Wordle }

@@ -1,8 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
+import WebFont from 'webfontloader'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+
+WebFont.load({
+  google: {
+    families: ['Inter', 'sans-serif'],
+  },
+})
 
 ReactDOM.render(
   <React.StrictMode>

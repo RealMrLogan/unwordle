@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import { Wordle, Solver } from './pages'
+import './index.css'
 
 function App() {
   return (
