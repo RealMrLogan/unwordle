@@ -1,5 +1,5 @@
 const Wordle = () => (
-  <div>Root</div>
+  <section className="m-6">Root</section>
 )
 
 export { Wordle }
