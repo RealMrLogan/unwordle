@@ -22,13 +22,21 @@ const Wordle = () => {
     } else if (letter === 'enter') {
       // same thing here as backspace
       if (currentWord.length === 5) {
+        /**
+         * TYPES
+         * 0: wrong letter
+         * 1: right letter, wrong spot
+         * 2: right letter, right spot
+         */
         // TODO: submit
-        setPreviousGuesses((guesses) => [...guesses, currentWord])
+        setPreviousGuesses(
+          (guesses) => [...guesses, currentWord.map((obj) => ({ ...obj, type: 0 }))],
+        )
         setNumGuess((num) => num + 1)
         setCurrenWord([])
       }
     } else if (currentWord.length < 5) {
-      setCurrenWord((word) => [...word, letter])
+      setCurrenWord((word) => [...word, { letter }])
     }
   }
 
