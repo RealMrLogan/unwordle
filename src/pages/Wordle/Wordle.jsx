@@ -5,7 +5,7 @@ import { WORD_LENGTH, TYPES, WORD } from './CONSTANTS'
 import fiveLetterDictionary from '../dictionaries/dictionary_5.json'
 import { Snackbar } from './Snackbar'
 
-console.log('the word to solve is', WORD)
+// console.log('the word to solve is', WORD)
 
 const getLetterType = (letter, index) => {
   if ([...WORD].some((control, i) => control === letter && i === index)) {
