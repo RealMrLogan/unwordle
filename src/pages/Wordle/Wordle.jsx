@@ -8,11 +8,9 @@ const getLetterType = (letter, index) => {
   const wordToSolve = localStorage.getItem('unwordle.word')
 
   if ([...wordToSolve].some((control, i) => control === letter && i === index)) {
-    console.log('right letter, right spot')
     return TYPES.RIGHT_LETTER_RIGHT_SPOT
   }
   if (wordToSolve.includes(letter)) {
-    console.log('right letter, wrong spot')
     return TYPES.RIGHT_LETTER_WRONG_SPOT
   }
   return TYPES.WRONG_LETTER
@@ -69,6 +67,7 @@ const Wordle = () => {
         // TODO: make sure word is valid
         // TODO: what to do if the word is correct
         //  ^^ set numGuess to 6?
+        // TODO: disable keys that are incorrect
         setPreviousGuesses(
           (guesses) => [...guesses, currentWord.map((obj, index) => {
             const letterType = getLetterType(obj.letter, index)
