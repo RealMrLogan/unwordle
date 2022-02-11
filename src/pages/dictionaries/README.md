@@ -1,0 +1,1 @@
+Dictionaries created by using https://github.com/dolph/dictionary
