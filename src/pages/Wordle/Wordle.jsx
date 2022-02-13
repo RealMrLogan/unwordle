@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react'
 import { GuessBoard } from './GuessBoard'
 import { Keyboard } from './Keyboard'
-import { WORD_LENGTH, TYPES, WORD } from './CONSTANTS'
+import { WORD_LENGTH, TYPES } from './CONSTANTS'
 import fiveLetterDictionary from '../dictionaries/dictionary_5.json'
 import { Snackbar } from './Snackbar'
+
+const getWord = () => localStorage.getItem('unwordle.word')
 
 // console.log('the word to solve is', WORD)
 
 const getLetterType = (letter, index) => {
-  if ([...WORD].some((control, i) => control === letter && i === index)) {
+  if ([...getWord()].some((control, i) => control === letter && i === index)) {
     return TYPES.RIGHT_LETTER_RIGHT_SPOT
   }
-  if (WORD.includes(letter)) {
+  if (getWord().includes(letter)) {
     return TYPES.RIGHT_LETTER_WRONG_SPOT
   }
   return TYPES.WRONG_LETTER
@@ -32,8 +34,6 @@ const storeWordInLocalStorage = (word, timeToStore) => {
   }
 }
 
-// TODO: handle multiples of a letter when there is only one valid
-
 const Wordle = () => {
   const [previousGuesses, setPreviousGuesses] = useState([])
   const [currentWord, setCurrenWord] = useState([])
@@ -48,6 +48,14 @@ const Wordle = () => {
     const word = fiveLetterDictionary[randomIndex]
     // store for an hour
     storeWordInLocalStorage(word, 1000 * 60 * 60)
+
+    // show dialog if they solved the word
+    const isSolved = (localStorage.getItem('unwordle.solved.timestamp') ?? Infinity) < localStorage.getItem('unwordle.timeToStore.end')
+    if (isSolved) {
+      const msUntilReset = localStorage.getItem('unwordle.timeToStore.end') - Date.now()
+      // TODO: show dialog instead of alert
+      alert(`You have solved the Word for now. Come back in ${Math.floor(msUntilReset / 1000 / 60)} minutes to play again.`)
+    }
   }, [])
 
   const onKeyClick = (letter) => {
@@ -85,8 +93,9 @@ const Wordle = () => {
         setCurrenWord([])
 
         // check if the word is correct
-        if (word === WORD) {
+        if (word === getWord()) {
           setShouldDisableKeyboard(true)
+          localStorage.setItem('unwordle.solved.timestamp', Date.now())
           // TODO: open finished dialog
         }
       }
@@ -98,7 +107,7 @@ const Wordle = () => {
   return (
     <>
       <Snackbar message={snackbarMessage} resetMessage={() => setSnackbarMessage()} />
-      <section className="p-3 h-screen bg-sky-lightest flex flex-col font-inter">
+      <section className="p-3 h-full bg-sky-lightest flex flex-col font-inter">
         <h1 className=" text-3xl font-bold">
           <span className="text-purple-light">un</span>
           wordle

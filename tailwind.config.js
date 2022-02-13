@@ -14,6 +14,7 @@ module.exports = {
         ink: {
           dark: '#303437',
           darkest: '#090A0A',
+          lighter: '#72777A',
         },
         green: {
           darkest: '#198155',
