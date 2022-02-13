@@ -54,6 +54,7 @@ const Wordle = () => {
     if (isSolved) {
       const msUntilReset = localStorage.getItem('unwordle.timeToStore.end') - Date.now()
       // TODO: show dialog instead of alert
+      // eslint-disable-next-line no-alert
       alert(`You have solved the Word for now. Come back in ${Math.floor(msUntilReset / 1000 / 60)} minutes to play again.`)
     }
   }, [])
