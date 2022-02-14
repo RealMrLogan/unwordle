@@ -1,5 +1,9 @@
+import { Form } from './Form'
+
 const Solver = () => (
-  <div>Solver</div>
+  <div className="m-auto w-96">
+    <Form />
+  </div>
 )
 
 export { Solver }

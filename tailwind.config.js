@@ -9,6 +9,7 @@ module.exports = {
         },
         sky: {
           dark: '#979C9E',
+          light: '#E3E5E5',
           lightest: '#F7F9FA',
         },
         ink: {
