@@ -1,6 +1,6 @@
 import { Children } from 'react'
 import { LetterGuess } from './LetterGuess'
-import { WORD_LENGTH } from '../CONSTANTS'
+import { WORD_LENGTH } from '../../CONSTANTS'
 
 const GuessBoard = ({ currentWord, numGuess, previousGuesses }) => (
   <>

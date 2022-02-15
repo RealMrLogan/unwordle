@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { GuessBoard } from './GuessBoard'
 import { Keyboard } from './Keyboard'
-import { WORD_LENGTH, TYPES } from './CONSTANTS'
+import { WORD_LENGTH, TYPES } from '../CONSTANTS'
 import fiveLetterDictionary from '../dictionaries/dictionary_5.json'
 import { Snackbar } from './Snackbar'
 

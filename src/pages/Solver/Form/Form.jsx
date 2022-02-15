@@ -1,19 +1,50 @@
 import { useForm } from 'react-hook-form'
-import { Input } from './Input'
+import { Input, MultiInput } from './Input'
 import { Button } from './Button'
+import { WORD_LENGTH } from '../../CONSTANTS'
 
-const Form = () => {
+const isIncludes = (word, array) => array.every(
+  (letter, i) => (letter ? word[i] === letter : true),
+)
+const isContains = (str1, str2) => str2.split('').every((letter) => str1.includes(letter))
+const isNotContains = (str1, str2) => str2.split('').every((letter) => !str1.includes(letter))
+
+export const getWordsFromForm = async (data) => {
+  const {
+    numLetters, contains, doesNotContain, ...includesInputs
+  } = data
+  const includes = Object.entries(includesInputs).map(([, value]) => value)
+
+  const moduleValues = Object.values(await import(`../../dictionaries/dictionary_${numLetters}.json`))
+  const dictionary = moduleValues.splice(0, moduleValues.length - 2)
+
+  // search the dictionary
+  const possibleWords = dictionary
+    .filter((word) => {
+      const doesInclude = includes.length ? isIncludes(word, includes) : true
+      if (!doesInclude) return false
+
+      const doesContain = contains ? isContains(word, contains) : true
+      if (!doesContain) return false
+
+      const isDoesNotContain = doesNotContain ? isNotContains(word, doesNotContain) : true
+      if (!isDoesNotContain) return false
+      return true
+    })
+  return (possibleWords)
+}
+
+const Form = ({ onSubmit }) => {
+  const includesArray = [...new Array(WORD_LENGTH)].map((_, i) => [`includes_${i}`, ''])
+  const includesDefaults = Object.fromEntries(includesArray)
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      numLetters: 5,
-      startsWith: '',
+      numLetters: WORD_LENGTH,
+      ...includesDefaults,
       contains: '',
-      endsWith: '',
       doesNotContain: '',
     },
   })
-
-  const onSubmit = (data) => console.log(data)
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -24,11 +55,17 @@ const Form = () => {
         control={control}
         placeholder="Placeholder Text"
       />
-      <Input
+      {/* <Input
         label="Starts With"
         name="startsWith"
         control={control}
         placeholder="Placeholder Text"
+      /> */}
+      <MultiInput
+        label="Includes"
+        names={includesArray.map(([name]) => name)}
+        control={control}
+        numInputs={WORD_LENGTH}
       />
       <Input
         label="Contains"
@@ -36,12 +73,12 @@ const Form = () => {
         control={control}
         placeholder="Placeholder Text"
       />
-      <Input
+      {/* <Input
         label="Ends With"
         name="endsWith"
         control={control}
         placeholder="Placeholder Text"
-      />
+      /> */}
       <Input
         label="Does Not Contain"
         name="doesNotContain"

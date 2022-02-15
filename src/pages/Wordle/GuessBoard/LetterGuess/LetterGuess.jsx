@@ -1,4 +1,4 @@
-import { TYPES } from '../../CONSTANTS'
+import { TYPES } from '../../../CONSTANTS'
 
 const LetterGuess = ({ children, type = -1 }) => {
   let classes = 'w-14 h-14 rounded-lg text-4xl uppercase grid place-content-center font-bold'
