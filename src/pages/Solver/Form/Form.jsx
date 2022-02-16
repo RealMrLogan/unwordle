@@ -4,10 +4,10 @@ import { Button } from './Button'
 import { WORD_LENGTH } from '../../CONSTANTS'
 
 const isIncludes = (word, array) => array.every(
-  (letter, i) => (letter ? word[i] === letter : true),
+  (letter, i) => (letter ? word[i] === letter.toLowerCase() : true),
 )
-const isContains = (str1, str2) => str2.split('').every((letter) => str1.includes(letter))
-const isNotContains = (str1, str2) => str2.split('').every((letter) => !str1.includes(letter))
+const isContains = (str1, str2) => str2.split('').every((letter) => str1.includes(letter.toLowerCase()))
+const isNotContains = (str1, str2) => str2.split('').every((letter) => !str1.includes(letter.toLowerCase()))
 
 export const getWordsFromForm = async (data) => {
   const {
