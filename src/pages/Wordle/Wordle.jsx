@@ -47,7 +47,7 @@ const Wordle = () => {
     const randomIndex = Math.floor(Math.random() * fiveLetterDictionary.length)
     const word = fiveLetterDictionary[randomIndex]
     // store for an hour
-    storeWordInLocalStorage(word, 1000 * 60 * 60)
+    storeWordInLocalStorage(word, 0)
 
     // show dialog if they solved the word
     const isSolved = (localStorage.getItem('unwordle.solved.timestamp') ?? Infinity) < localStorage.getItem('unwordle.timeToStore.end')

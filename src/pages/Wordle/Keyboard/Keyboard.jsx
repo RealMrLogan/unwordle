@@ -14,7 +14,8 @@ const Keyboard = ({ onKeyClick, disable, disabledKeys }) => (
 
             <KeyboardLetter
               onKeyClick={onKeyClick}
-              disabled={disabledKeys.includes(letter) || disable}
+              greyedOut={disabledKeys.includes(letter)}
+              disabled={disable}
             >
               {letter}
             </KeyboardLetter>

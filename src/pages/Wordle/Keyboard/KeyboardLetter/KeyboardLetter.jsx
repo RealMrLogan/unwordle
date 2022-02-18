@@ -1,7 +1,7 @@
 const KeyboardLetter = ({
-  children, className, onKeyClick, disabled,
+  children, className, onKeyClick, disabled, greyedOut,
 }) => {
-  const disabledClasses = disabled ? 'bg-ink-dark text-sky-dark border-0' : ''
+  const disabledClasses = disabled || greyedOut ? 'bg-ink-dark text-sky-dark border-0' : ''
   const onClick = () => {
     let letter = children
     if (typeof children !== 'string') {
